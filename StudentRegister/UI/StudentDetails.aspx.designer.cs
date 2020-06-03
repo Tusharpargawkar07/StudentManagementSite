@@ -31,13 +31,22 @@ namespace CRUDOperationWebApp {
         protected global::System.Web.UI.WebControls.TextBox tboxId;
         
         /// <summary>
-        /// btnGetData control.
+        /// btnGetDataById control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGetData;
+        protected global::System.Web.UI.WebControls.Button btnGetDataById;
+        
+        /// <summary>
+        /// btnGetAllData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGetAllData;
         
         /// <summary>
         /// tboxFName control.
@@ -76,31 +85,31 @@ namespace CRUDOperationWebApp {
         protected global::System.Web.UI.WebControls.TextBox tboxGender;
         
         /// <summary>
-        /// Button1 control.
+        /// btnInsertStuDetails control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button btnInsertStuDetails;
         
         /// <summary>
-        /// Button2 control.
+        /// btnUpdateDetails control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button2;
+        protected global::System.Web.UI.WebControls.Button btnUpdateDetails;
         
         /// <summary>
-        /// Button3 control.
+        /// btnDelete control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button3;
+        protected global::System.Web.UI.WebControls.Button btnDelete;
         
         /// <summary>
         /// lblMessage control.

@@ -4,4 +4,11 @@
 /MyDataLayer/obj
 .vs/
 .git/
-.gitignore
+/SSDT/Security
+/SSDT/Import Schema Logs
+/SSDT/obj/Debug
+/SSDT/bin
+/SSDT/obj
+/SSDT/SSDT.sqlproj.user
+/SSDT/SSDT.dbmdl
+/SSDT/SSDT.jfm
