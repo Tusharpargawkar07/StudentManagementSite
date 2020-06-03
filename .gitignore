@@ -2,3 +2,6 @@
 /StudentRegister/obj
 /MyDataLayer/bin
 /MyDataLayer/obj
+.vs/
+.git/
+.gitignore
