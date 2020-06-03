@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentRegister", "StudentR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDataLayer", "MyDataLayer\MyDataLayer.csproj", "{97AC32A1-ABF2-4A03-B058-738B72C8A078}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SSDT", "SSDT\SSDT.sqlproj", "{3690A0F5-D252-4109-85D7-68928CF1BC34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,12 @@ Global
 		{97AC32A1-ABF2-4A03-B058-738B72C8A078}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97AC32A1-ABF2-4A03-B058-738B72C8A078}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97AC32A1-ABF2-4A03-B058-738B72C8A078}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3690A0F5-D252-4109-85D7-68928CF1BC34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3690A0F5-D252-4109-85D7-68928CF1BC34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3690A0F5-D252-4109-85D7-68928CF1BC34}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3690A0F5-D252-4109-85D7-68928CF1BC34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3690A0F5-D252-4109-85D7-68928CF1BC34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3690A0F5-D252-4109-85D7-68928CF1BC34}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
