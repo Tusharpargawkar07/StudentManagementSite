@@ -2,6 +2,7 @@
 /StudentRegister/obj
 /MyDataLayer/bin
 /MyDataLayer/obj
+StudentRegister/*.csproj.user
 .vs/
 .git/
 /SSDT/Security
