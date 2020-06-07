@@ -1,19 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="StudentDetails.aspx.cs" Inherits="CRUDOperationWebApp.StudentDetails" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Master Layout/Site.Master" CodeBehind="StudentDetails.aspx.cs" Inherits="CRUDOperationWebApp.StudentDetails" %>
 
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-    <style type="text/css">
-        .auto-style1 {
-            margin-right: 8px;
-        }
-    </style>
-    <link href="../Bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-</head>
-<body>
-    <form id="form1" runat="server">
+<asp:Content ContentPlaceHolderID="ContentPlaceHolder" runat="server">
         <div class="container">
             <div class="container-fluid">
                 <div class="row"></div>
@@ -83,7 +70,4 @@
                     </div>
             </div>
         </div>
-    </form>
-    <script src="../Bootstrap/js/bootstrap.min.js"></script>
-</body>
-</html>
+</asp:Content>
