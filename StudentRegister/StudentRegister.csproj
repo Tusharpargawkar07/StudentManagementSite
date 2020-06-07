@@ -77,6 +77,10 @@
     <Content Include="Bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="Bootstrap\js\bootstrap.js" />
     <Content Include="Bootstrap\js\bootstrap.min.js" />
+    <Content Include="Images\logo\logo.png" />
+    <Content Include="Images\logo\modified logo.png" />
+    <Content Include="Images\logo\Schoollogo.png" />
+    <Content Include="My StyleSheet\StyleSheet.css" />
     <Content Include="UI\Home.aspx" />
     <Content Include="UI\StudentDetails.aspx" />
     <Content Include="Web.config">

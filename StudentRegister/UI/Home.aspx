@@ -2,6 +2,7 @@
 
 <asp:Content ID="HomePageContent1" ContentPlaceHolderID="head" runat="server">
     <link href="../Bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../My%20StyleSheet/StyleSheet.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="HomePageContent2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
     <div id="Slide" class="carousel slide" data-ride="carousel">
@@ -22,11 +23,11 @@
             </div>--%>
         </div>
         <a class="carousel-control-prev" href="#Slide" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class=" carousel-control-prev-icon round" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
         <a class="carousel-control-next" href="#Slide" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="carousel-control-next-icon round" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
     </div>
