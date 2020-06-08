@@ -13,3 +13,6 @@ StudentRegister/*.csproj.user
 /SSDT/SSDT.sqlproj.user
 /SSDT/SSDT.dbmdl
 /SSDT/SSDT.jfm
+/StudentRegister/Web.Debug.config
+/StudentRegister/Web.Release.config
+/StudentRegister/Properties/PublishProfiles
