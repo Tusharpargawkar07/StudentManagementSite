@@ -77,9 +77,13 @@
     <Content Include="Bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="Bootstrap\js\bootstrap.js" />
     <Content Include="Bootstrap\js\bootstrap.min.js" />
+    <Content Include="Images\School Images\Img2.jpg" />
+    <Content Include="Images\School Images\Img3.jpg" />
+    <Content Include="Images\School Images\Img1.jpg" />
     <Content Include="Images\logo\logo.png" />
     <Content Include="Images\logo\modified logo.png" />
     <Content Include="Images\logo\Schoollogo.png" />
+    <Content Include="My StyleSheet\SecondStyle.css" />
     <Content Include="My StyleSheet\StyleSheet.css" />
     <Content Include="UI\Home.aspx" />
     <Content Include="UI\StudentDetails.aspx" />
@@ -124,12 +128,8 @@
     <Content Include="Bootstrap\js\bootstrap.min.js.map" />
     <Content Include="Master Layout\Site.Master" />
     <None Include="packages.config" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyDataLayer\MyDataLayer.csproj">
