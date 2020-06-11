@@ -16,4 +16,5 @@ StudentRegister/*.csproj.user
 /StudentRegister/Web.Debug.config
 /StudentRegister/Web.Release.config
 /StudentRegister/Properties/PublishProfiles
-/StudentRegister/Web.config
+/ErrorLogger/bin
+/ErrorLogger/obj

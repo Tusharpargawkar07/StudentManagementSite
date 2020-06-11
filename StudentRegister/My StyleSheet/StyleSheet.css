@@ -1,4 +1,7 @@
-﻿body {
+﻿/*@import url('../Bootstrap/css/bootstrap.min.css');*/
+
+
+body {
 }
 
 .MyStyle
@@ -7,6 +10,12 @@
 
 }
 
+.carousel-caption {
+    font-family: 'Times New Roman', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-bottom: 12vh;
+    color: black;
+    /*background-color: white;*/
+}
 .round {
     border-radius: 100%;
     background-color: #000;

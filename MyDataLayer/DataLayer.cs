@@ -3,18 +3,18 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Logger;
 
 namespace MyDataLayer
 {
     public class DataLayer
     {
         SqlConnection sqlConnection;
-
+        Log log; 
         public DataLayer(string ConnectionString)
         {
             sqlConnection = new SqlConnection(ConnectionString);
+            log = new Log("DataLayer");
         }
 
         #region InsertDataFun
@@ -32,19 +32,16 @@ namespace MyDataLayer
 
                     keyValuePairs.Select(y => y).ToList().ForEach(x => sqlCommand.Parameters.Add(new SqlParameter(x.Key, x.Value)));
                     result = sqlCommand.ExecuteNonQuery();
-
+                  
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                var Error = e;
+                log.ErrorLog(ex);
             }
             finally
             {
                 sqlConnection.Close();
-                sqlConnection.Dispose();
-
-
             }
 
 
@@ -60,71 +57,108 @@ namespace MyDataLayer
 
         public DataSet GetData(string query, Dictionary<string, object> keyValuePairs = null)
         {
-            DataSet dataSet;
-            using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
+            DataSet dataSet= new DataSet();
+            try
             {
-                using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter())
+                using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
                 {
-                    sqlDataAdapter.SelectCommand = sqlCommand;
-                    if (query.Contains("sp_"))
-                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                    using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter())
+                    {
+                        sqlDataAdapter.SelectCommand = sqlCommand;
+                        if (query.Contains("sp_"))
+                            sqlCommand.CommandType = CommandType.StoredProcedure;
 
-                    if (keyValuePairs != null)
-                        keyValuePairs.Select(x => x).ToList().ForEach(y => sqlCommand.Parameters.Add(new SqlParameter(y.Key, y.Value)));
-                    dataSet = new DataSet();
-                    sqlDataAdapter.Fill(dataSet);
-                    sqlConnection.Close();
-                    //sqlConnection.Dispose();
+                        if (keyValuePairs != null)
+                            keyValuePairs.Select(x => x).ToList().ForEach(y => sqlCommand.Parameters.Add(new SqlParameter(y.Key, y.Value)));
+                        dataSet = new DataSet();
+                        sqlDataAdapter.Fill(dataSet);
+
+
+                    }
                 }
-            }
-            if (dataSet.Tables[0].Rows.Count > 0)
-                return dataSet;
 
+               
+            }
+            catch(Exception ex)
+            {
+                log.ErrorLog(ex);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
             return dataSet;
         }
+
+        #endregion
+
+        #region UpdateDataFun
 
         public int UpdateData(string Query, Dictionary<string, object> dictionary)
         {
             int result = 0;
-            using (SqlCommand sqlCommand = new SqlCommand(Query, sqlConnection))
+            try
             {
-                sqlConnection.Open();
-                if (Query.Contains("sp_"))
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-
-                if(dictionary.Count != 0)
+                using (SqlCommand sqlCommand = new SqlCommand(Query, sqlConnection))
                 {
-                    dictionary.Select(x => x).ToList().ForEach(y => sqlCommand.Parameters.Add(new SqlParameter(y.Key, y.Value)));
+                    sqlConnection.Open();
+                    if (Query.Contains("sp_"))
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                    if (dictionary.Count != 0)
+                    {
+                        dictionary.Select(x => x).ToList().ForEach(y => sqlCommand.Parameters.Add(new SqlParameter(y.Key, y.Value)));
+                    }
+
+                    result = sqlCommand.ExecuteNonQuery();
                 }
-
-                result = sqlCommand.ExecuteNonQuery();
-                sqlConnection.Close();
-                sqlConnection.Dispose();
+ 
             }
-
+            catch(Exception ex)
+            {
+                log.ErrorLog(ex);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
             return result;
         }
+
+        #endregion
+
+        #region DeleteDataFun
 
         public int DeleteData(string Query, Dictionary<string, object> dictionary)
         {
             int result = 0;
-            using (SqlCommand sqlCommand = new SqlCommand(Query, sqlConnection))
+            try
             {
-                sqlConnection.Open();
-                if (Query.Contains("sp_"))
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-
-                if (dictionary.Count != 0)
+                using (SqlCommand sqlCommand = new SqlCommand(Query, sqlConnection))
                 {
-                    dictionary.Select(x => x).ToList().ForEach(y => sqlCommand.Parameters.Add(new SqlParameter(y.Key, y.Value)));
+                    sqlConnection.Open();
+                    if (Query.Contains("sp_"))
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                    if (dictionary.Count != 0)
+                    {
+                        dictionary.Select(x => x).ToList().ForEach(y => sqlCommand.Parameters.Add(new SqlParameter(y.Key, y.Value)));
+                    }
+
+                    result = sqlCommand.ExecuteNonQuery();                
                 }
 
-                result = sqlCommand.ExecuteNonQuery();
-                sqlConnection.Close();
-                sqlConnection.Dispose();
             }
-
+            catch (Exception ex)
+            {
+                log.ErrorLog(ex);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
             return result;
+ 
         }
         #endregion
     }

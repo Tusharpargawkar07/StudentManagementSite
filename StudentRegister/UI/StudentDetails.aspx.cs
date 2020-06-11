@@ -3,131 +3,168 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Web.UI.WebControls;
+using Logger;
 using MyDataLayer;
 
 namespace CRUDOperationWebApp
 {
     public partial class StudentDetails : System.Web.UI.Page
     {
+        Log log;
         protected void Page_Load(object sender, EventArgs e)
         {
-            tboxId.Enabled = true;
+            log = new Log("StudentDetails");
+            //tboxId.Enabled = true;
             // tboxFName.Focus();
             lblMessage.Text = "";
         }
 
         protected void btnInsertDetails_Click(object sender, EventArgs e)
         {
-            string conString = ConfigurationManager.ConnectionStrings["DefaultConStr"].ConnectionString;
-            //string sqlCmd = "Insert Into tbl_Student_Details(First_Name,Last_Name,Email,Gender) values(@First_Name,@Last_Name,@Email,@Gender);";
-            string sqlCmd = "sp_InsertStudentDetails";
+            try
+            {
+                string conString = ConfigurationManager.ConnectionStrings["DefaultConStr"].ConnectionString;
+                //string sqlCmd = "Insert Into tbl_Student_Details(First_Name,Last_Name,Email,Gender) values(@First_Name,@Last_Name,@Email,@Gender);";
+                string sqlCmd = "sp_InsertStudentDetails";
 
-            DataLayer dataLayer = new DataLayer(conString);
-            lblMessage.Text = dataLayer.InsertData(sqlCmd,
-                new Dictionary<string, object>()
-                {
-                    ["@First_Name"] = tboxFName.Text,
-                    ["@Last_Name"] = tboxLName.Text,
-                    ["@Email"] = tboxEmail.Text,
-                    ["@Gender"] = tboxGender.Text
-                }
-                );
+                DataLayer dataLayer = new DataLayer(conString);
+                lblMessage.Text = dataLayer.InsertData(sqlCmd,
+                    new Dictionary<string, object>()
+                    {
+                        ["@First_Name"] = tboxFName.Text,
+                        ["@Last_Name"] = tboxLName.Text,
+                        ["@Email"] = tboxEmail.Text,
+                        ["@Gender"] = tboxGender.Text
+                    }
+                    );
+            }
+            catch (Exception ex)
+            {
+                log.ErrorLog(ex);
+                Server.Transfer("~/ErrorPage/ErrorPage.aspx");
+            }
 
         }
 
         protected void btnGetData_Click(object sender, EventArgs e)
         {
-            DataLayer dataLayer = new DataLayer(ConfigurationManager.ConnectionStrings["DefaultConStr"].ConnectionString);
-            if (((Button)sender).ID == "btnGetAllData")
-                tboxId.Text = string.Empty;
-
-            DataSet dataSet = dataLayer.GetData("sp_GetStudentDetailsById", new Dictionary<string, object>() { { "@Id", tboxId.Text } });
-
-            //DataSet dataSet = dataLayer.GetData("Select * from tbl_Student_Details where Id =@Id", new Dictionary<string, object>() { {"@Id",tboxId.Text } });
-
-            if (tboxId.Text != string.Empty)
+            try
             {
-                if (dataSet.Tables[0].Rows.Count > 0)
+                DataLayer dataLayer = new DataLayer(ConfigurationManager.ConnectionStrings["DefaultConStr"].ConnectionString);
+                if (((Button)sender).ID == "btnGetAllData")
+                    tboxId.Text = string.Empty;
+
+                DataSet dataSet = dataLayer.GetData("sp_GetStudentDetailsById", new Dictionary<string, object>() { { "@Id", tboxId.Text } });
+
+                //DataSet dataSet = dataLayer.GetData("Select * from tbl_Student_Details where Id =@Id", new Dictionary<string, object>() { {"@Id",tboxId.Text } });
+
+                if (tboxId.Text != string.Empty)
                 {
-                    tboxFName.Text = dataSet.Tables[0].Rows[0][1].ToString();//.ToString();
-                    tboxLName.Text = dataSet.Tables[0].Rows[0][2].ToString();
-                    tboxEmail.Text = dataSet.Tables[0].Rows[0][3].ToString();
-                    tboxGender.Text = dataSet.Tables[0].Rows[0][4].ToString();
+                    if (dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        tboxFName.Text = dataSet.Tables[0].Rows[0][1].ToString();//.ToString();
+                        tboxLName.Text = dataSet.Tables[0].Rows[0][2].ToString();
+                        tboxEmail.Text = dataSet.Tables[0].Rows[0][3].ToString();
+                        tboxGender.Text = dataSet.Tables[0].Rows[0][4].ToString();
 
-                    GridViewStudentDetails.DataSource = null;
-                    GridViewStudentDetails.DataBind();
+                        GridViewStudentDetails.DataSource = null;
+                        GridViewStudentDetails.DataBind();
+                    }
                 }
+                else
+                {
+                    if (dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        tboxFName.Text = "";
+                        tboxLName.Text = "";
+                        tboxEmail.Text = "";
+                        tboxGender.Text = "";
+                        GridViewStudentDetails.DataSource = dataSet.Tables[0];
+                        GridViewStudentDetails.DataBind();
+                    }
+                }
+
+                lblMessage.Text = "";
             }
-            else
+            catch (Exception ex)
             {
-                if (dataSet.Tables[0].Rows.Count > 0)
+                log.ErrorLog(ex);
+                Server.Transfer("~/ErrorPage/ErrorPage.aspx");
+            }
+
+        }
+
+        protected void btnUpdateDetails_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int result = 0;
+                DataLayer dataLayer = new DataLayer(ConfigurationManager.ConnectionStrings["DefaultConStr"].ConnectionString);
+                DataSet dataSet = dataLayer.GetData("sp_GetStudentDetailsById", new Dictionary<string, object>() { { "@Id", tboxId.Text } });
+                if (dataSet.Tables[0].Rows.Count >= 1)
+                {
+                    result = dataLayer.UpdateData("sp_UpdateStudentDetailsById", new Dictionary<string, object>() { { "@Id", tboxId.Text },  {"@First_Name",tboxFName.Text },
+                     { "@Last_Name" ,tboxLName.Text },
+                     { "@Email" ,tboxEmail.Text },
+                     { "@Gender" ,tboxGender.Text}});
+
+                }
+                else
                 {
                     tboxFName.Text = "";
                     tboxLName.Text = "";
                     tboxEmail.Text = "";
                     tboxGender.Text = "";
-                    GridViewStudentDetails.DataSource = dataSet.Tables[0];
-                    GridViewStudentDetails.DataBind();
+                    lblMessage.Text = $"No record Found For {tboxId.Text}.";
                 }
+
+                if (result > 0)
+                    lblMessage.Text = "Data Updated Successfully.";
             }
-
-            lblMessage.Text = "";
-        }
-
-        protected void btnUpdateDetails_Click(object sender, EventArgs e)
-        {
-            int result = 0;
-            DataLayer dataLayer = new DataLayer(ConfigurationManager.ConnectionStrings["DefaultConStr"].ConnectionString);
-            DataSet dataSet = dataLayer.GetData("sp_GetStudentDetailsById", new Dictionary<string, object>() { { "@Id", tboxId.Text } });
-            if (dataSet.Tables[0].Rows.Count >= 1)
+            catch (Exception ex)
             {
-                result = dataLayer.UpdateData("sp_UpdateStudentDetailsById", new Dictionary<string, object>() { { "@Id", tboxId.Text },  {"@First_Name",tboxFName.Text },
-                     { "@Last_Name" ,tboxLName.Text },
-                     { "@Email" ,tboxEmail.Text },
-                     { "@Gender" ,tboxGender.Text}});
-
+                log.ErrorLog(ex);
+                Server.Transfer("~/ErrorPage/ErrorPage.aspx");
             }
-            else
-            {
-                tboxFName.Text = "";
-                tboxLName.Text = "";
-                tboxEmail.Text = "";
-                tboxGender.Text = "";
-                lblMessage.Text = $"No record Found For {tboxId.Text}.";
-            }
-
-            if (result > 0)
-                lblMessage.Text = "Data Updated Successfully.";
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            int result = 0;
-            DataLayer dataLayer = new DataLayer(ConfigurationManager.ConnectionStrings["DefaultConStr"].ConnectionString);
-            DataSet dataSet = dataLayer.GetData("sp_GetStudentDetailsById", new Dictionary<string, object>() { { "@Id", tboxId.Text } });
-            if (dataSet.Tables[0].Rows.Count >= 1)
+            try
             {
-                result = dataLayer.DeleteData("sp_DeleteStudentDetailsById", new Dictionary<string, object>() { { "@Id", tboxId.Text } });
 
+
+                int result = 0;
+                DataLayer dataLayer = new DataLayer(ConfigurationManager.ConnectionStrings["DefaultConStr"].ConnectionString);
+                DataSet dataSet = dataLayer.GetData("sp_GetStudentDetailsById", new Dictionary<string, object>() { { "@Id", tboxId.Text } });
+                if (dataSet.Tables[0].Rows.Count >= 1)
+                {
+                    result = dataLayer.DeleteData("sp_DeleteStudentDetailsById", new Dictionary<string, object>() { { "@Id", tboxId.Text } });
+
+                }
+                else
+                {
+                    tboxFName.Text = "";
+                    tboxLName.Text = "";
+                    tboxEmail.Text = "";
+                    tboxGender.Text = "";
+                    lblMessage.Text = $"No record Found For student id {tboxId.Text}.";
+                }
+
+                if (result > 0)
+                {
+                    tboxFName.Text = "";
+                    tboxLName.Text = "";
+                    tboxEmail.Text = "";
+                    tboxGender.Text = "";
+                    lblMessage.Text = $" Record successfully Deleted For student id {tboxId.Text}.";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                tboxFName.Text = "";
-                tboxLName.Text = "";
-                tboxEmail.Text = "";
-                tboxGender.Text = "";
-                lblMessage.Text = $"No record Found For student id {tboxId.Text}.";
+                log.ErrorLog(ex);
+                Server.Transfer("~/ErrorPage/ErrorPage.aspx");
             }
-
-            if (result > 0)
-            {
-                tboxFName.Text = "";
-                tboxLName.Text = "";
-                tboxEmail.Text = "";
-                tboxGender.Text = "";
-                lblMessage.Text = $" Record successfully Deleted For student id {tboxId.Text}.";
-            }
-
         }
 
         protected void btnGetAllData_Click(object sender, EventArgs e)

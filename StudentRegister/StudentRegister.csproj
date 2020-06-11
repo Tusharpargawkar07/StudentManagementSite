@@ -77,12 +77,21 @@
     <Content Include="Bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="Bootstrap\js\bootstrap.js" />
     <Content Include="Bootstrap\js\bootstrap.min.js" />
+    <Content Include="ErrorPage\ErrorPage.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\Login Page Img\bgImg.jpg" />
+    <Content Include="Images\Login Page Img\facebook.png" />
+    <Content Include="Images\Login Page Img\google.png" />
+    <Content Include="Images\Login Page Img\LoginBackGround.jpg" />
+    <Content Include="Images\Login Page Img\loginpanel.jpg" />
     <Content Include="Images\School Images\Img2.jpg" />
     <Content Include="Images\School Images\Img3.jpg" />
     <Content Include="Images\School Images\Img1.jpg" />
     <Content Include="Images\logo\logo.png" />
     <Content Include="Images\logo\modified logo.png" />
     <Content Include="Images\logo\Schoollogo.png" />
+    <Content Include="My StyleSheet\LoginPageStyle.css" />
+    <Content Include="UI\Login.aspx" />
     <Content Include="My StyleSheet\SecondStyle.css" />
     <Content Include="My StyleSheet\StyleSheet.css" />
     <Content Include="UI\Home.aspx" />
@@ -92,12 +101,29 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ErrorPage\ErrorPage.aspx.cs">
+      <DependentUpon>ErrorPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPage\ErrorPage.aspx.designer.cs">
+      <DependentUpon>ErrorPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Master Layout\Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Master Layout\Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI\Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
@@ -132,6 +158,10 @@
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ErrorLogger\Logger.csproj">
+      <Project>{312DDC77-70B5-4E49-8078-EB5D393E034A}</Project>
+      <Name>Logger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyDataLayer\MyDataLayer.csproj">
       <Project>{97ac32a1-abf2-4a03-b058-738b72c8a078}</Project>
       <Name>MyDataLayer</Name>

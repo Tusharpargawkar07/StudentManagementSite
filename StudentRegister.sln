@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDataLayer", "MyDataLayer\
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SSDT", "SSDT\SSDT.sqlproj", "{3690A0F5-D252-4109-85D7-68928CF1BC34}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "ErrorLogger\Logger.csproj", "{312DDC77-70B5-4E49-8078-EB5D393E034A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{3690A0F5-D252-4109-85D7-68928CF1BC34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3690A0F5-D252-4109-85D7-68928CF1BC34}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3690A0F5-D252-4109-85D7-68928CF1BC34}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{312DDC77-70B5-4E49-8078-EB5D393E034A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{312DDC77-70B5-4E49-8078-EB5D393E034A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{312DDC77-70B5-4E49-8078-EB5D393E034A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{312DDC77-70B5-4E49-8078-EB5D393E034A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
