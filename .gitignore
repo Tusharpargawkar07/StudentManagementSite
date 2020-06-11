@@ -18,3 +18,4 @@ StudentRegister/*.csproj.user
 /StudentRegister/Properties/PublishProfiles
 /ErrorLogger/bin
 /ErrorLogger/obj
+/StudentRegister/Web.config
