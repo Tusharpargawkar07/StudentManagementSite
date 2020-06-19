@@ -5,15 +5,16 @@ using System.Data;
 using System.Web.UI.WebControls;
 using Logger;
 using MyDataLayer;
+using Ninject;
 
 namespace CRUDOperationWebApp
 {
     public partial class StudentDetails : System.Web.UI.Page
     {
-        Log log;
+       [Inject]
+       public ILogger Logger { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            log = new Log("StudentDetails");
             //tboxId.Enabled = true;
             // tboxFName.Focus();
             lblMessage.Text = "";
@@ -40,7 +41,7 @@ namespace CRUDOperationWebApp
             }
             catch (Exception ex)
             {
-                log.ErrorLog(ex);
+                Logger.ErrorLog(ex);
                 Server.Transfer("~/ErrorPage/ErrorPage.aspx");
             }
 
@@ -52,43 +53,52 @@ namespace CRUDOperationWebApp
             {
                 DataLayer dataLayer = new DataLayer(ConfigurationManager.ConnectionStrings["DefaultConStr"].ConnectionString);
                 if (((Button)sender).ID == "btnGetAllData")
-                    tboxId.Text = string.Empty;
-
-                DataSet dataSet = dataLayer.GetData("sp_GetStudentDetailsById", new Dictionary<string, object>() { { "@Id", tboxId.Text } });
-
-                //DataSet dataSet = dataLayer.GetData("Select * from tbl_Student_Details where Id =@Id", new Dictionary<string, object>() { {"@Id",tboxId.Text } });
-
-                if (tboxId.Text != string.Empty)
+                    tboxId.Text = "0";
+                if (int.TryParse(tboxId.Text, out int Id))
                 {
-                    if (dataSet.Tables[0].Rows.Count > 0)
-                    {
-                        tboxFName.Text = dataSet.Tables[0].Rows[0][1].ToString();//.ToString();
-                        tboxLName.Text = dataSet.Tables[0].Rows[0][2].ToString();
-                        tboxEmail.Text = dataSet.Tables[0].Rows[0][3].ToString();
-                        tboxGender.Text = dataSet.Tables[0].Rows[0][4].ToString();
 
-                        GridViewStudentDetails.DataSource = null;
-                        GridViewStudentDetails.DataBind();
+
+                    DataSet dataSet = dataLayer.GetData("sp_GetStudentDetailsById", new Dictionary<string, object>() { { "@Id", Id } });
+
+                    //DataSet dataSet = dataLayer.GetData("Select * from tbl_Student_Details where Id =@Id", new Dictionary<string, object>() { {"@Id",tboxId.Text } });
+
+                    if (tboxId.Text != "0")
+                    {
+                        if (dataSet.Tables[0].Rows.Count > 0)
+                        {
+                            tboxFName.Text = dataSet.Tables[0].Rows[0][1].ToString();//.ToString();
+                            tboxLName.Text = dataSet.Tables[0].Rows[0][2].ToString();
+                            tboxEmail.Text = dataSet.Tables[0].Rows[0][3].ToString();
+                            tboxGender.Text = dataSet.Tables[0].Rows[0][4].ToString();
+
+                            GridViewStudentDetails.DataSource = null;
+                            GridViewStudentDetails.DataBind();
+                            throw new Exception("Fuck You");
+                        }
                     }
+                    else
+                    {
+                        if (dataSet.Tables[0].Rows.Count > 0)
+                        {
+                            tboxFName.Text = "";
+                            tboxLName.Text = "";
+                            tboxEmail.Text = "";
+                            tboxGender.Text = "";
+                            GridViewStudentDetails.DataSource = dataSet.Tables[0];
+                            GridViewStudentDetails.DataBind();
+                        }
+                    }
+
+                    lblMessage.Text = "";
                 }
                 else
                 {
-                    if (dataSet.Tables[0].Rows.Count > 0)
-                    {
-                        tboxFName.Text = "";
-                        tboxLName.Text = "";
-                        tboxEmail.Text = "";
-                        tboxGender.Text = "";
-                        GridViewStudentDetails.DataSource = dataSet.Tables[0];
-                        GridViewStudentDetails.DataBind();
-                    }
+                    lblMessage.Text = "Enter Numeric values only";
                 }
-
-                lblMessage.Text = "";
             }
             catch (Exception ex)
             {
-                log.ErrorLog(ex);
+                Logger.ErrorLog(ex);
                 Server.Transfer("~/ErrorPage/ErrorPage.aspx");
             }
 
@@ -123,7 +133,7 @@ namespace CRUDOperationWebApp
             }
             catch (Exception ex)
             {
-                log.ErrorLog(ex);
+                Logger.ErrorLog(ex);
                 Server.Transfer("~/ErrorPage/ErrorPage.aspx");
             }
         }
@@ -162,7 +172,7 @@ namespace CRUDOperationWebApp
             }
             catch (Exception ex)
             {
-                log.ErrorLog(ex);
+                Logger.ErrorLog(ex);
                 Server.Transfer("~/ErrorPage/ErrorPage.aspx");
             }
         }

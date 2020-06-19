@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDataLayer", "MyDataLayer\
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SSDT", "SSDT\SSDT.sqlproj", "{3690A0F5-D252-4109-85D7-68928CF1BC34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "ErrorLogger\Logger.csproj", "{312DDC77-70B5-4E49-8078-EB5D393E034A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "Logger\Logger.csproj", "{312DDC77-70B5-4E49-8078-EB5D393E034A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
