@@ -1,4 +1,5 @@
 ﻿using Logger;
+using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +11,12 @@ namespace StudentRegister
 {
     public class Global : System.Web.HttpApplication
     {
-        Log log ;
+        [Inject]
+        public ILogger Logger { get; set; }
 
-        public Global()
-        {
-            log = new Log("Global");
-        }
         protected void Application_Start(object sender, EventArgs e)
         {
-          
+
         }
 
         protected void Session_Start(object sender, EventArgs e)
@@ -41,7 +39,7 @@ namespace StudentRegister
             Exception exception = Server.GetLastError();
             if (exception != null)
             {
-                log.ErrorLog(exception);
+                Logger.ErrorLog(exception);
                 Server.ClearError();
                 Server.Transfer("~/ErrorPage/ErrorPage.aspx");
             }

@@ -4,17 +4,19 @@ using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using Logger;
+using Ninject;
 
 namespace MyDataLayer
 {
     public class DataLayer
     {
         SqlConnection sqlConnection;
-        Log log; 
+        [Inject]
+        public ILogger Logger { get; set; }
+
         public DataLayer(string ConnectionString)
         {
             sqlConnection = new SqlConnection(ConnectionString);
-            log = new Log("DataLayer");
         }
 
         #region InsertDataFun
@@ -37,7 +39,7 @@ namespace MyDataLayer
             }
             catch (Exception ex)
             {
-                log.ErrorLog(ex);
+                Logger.ErrorLog(ex);
             }
             finally
             {
@@ -81,7 +83,7 @@ namespace MyDataLayer
             }
             catch(Exception ex)
             {
-                log.ErrorLog(ex);
+                Logger.ErrorLog(ex);
             }
             finally
             {
@@ -116,7 +118,7 @@ namespace MyDataLayer
             }
             catch(Exception ex)
             {
-                log.ErrorLog(ex);
+                Logger.ErrorLog(ex);
             }
             finally
             {
@@ -151,7 +153,7 @@ namespace MyDataLayer
             }
             catch (Exception ex)
             {
-                log.ErrorLog(ex);
+                Logger.ErrorLog(ex);
             }
             finally
             {

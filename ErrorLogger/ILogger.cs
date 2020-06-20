@@ -2,7 +2,7 @@
 
 namespace Logger
 {
-    interface ILogger
+    public interface ILogger
     {
         void DebugLog(Exception ex);
         void InfoLog(Exception ex);
