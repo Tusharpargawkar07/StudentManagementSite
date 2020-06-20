@@ -11,8 +11,12 @@ namespace CRUDOperationWebApp
 {
     public partial class StudentDetails : System.Web.UI.Page
     {
-       [Inject]
-       public ILogger Logger { get; set; }
+        [Inject]
+        public ILogger Logger { get; set; }
+
+        [Inject]
+        public DataLayer DataLayer { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //tboxId.Enabled = true;
@@ -28,8 +32,8 @@ namespace CRUDOperationWebApp
                 //string sqlCmd = "Insert Into tbl_Student_Details(First_Name,Last_Name,Email,Gender) values(@First_Name,@Last_Name,@Email,@Gender);";
                 string sqlCmd = "sp_InsertStudentDetails";
 
-                DataLayer dataLayer = new DataLayer(conString);
-                lblMessage.Text = dataLayer.InsertData(sqlCmd,
+               // DataLayer dataLayer = new DataLayer(conString);
+                lblMessage.Text = DataLayer.InsertData(sqlCmd,
                     new Dictionary<string, object>()
                     {
                         ["@First_Name"] = tboxFName.Text,
@@ -51,14 +55,14 @@ namespace CRUDOperationWebApp
         {
             try
             {
-                DataLayer dataLayer = new DataLayer(ConfigurationManager.ConnectionStrings["DefaultConStr"].ConnectionString);
+                // dataLayer = new DataLayer(ConfigurationManager.ConnectionStrings["DefaultConStr"].ConnectionString);
                 if (((Button)sender).ID == "btnGetAllData")
                     tboxId.Text = "0";
                 if (int.TryParse(tboxId.Text, out int Id))
                 {
 
 
-                    DataSet dataSet = dataLayer.GetData("sp_GetStudentDetailsById", new Dictionary<string, object>() { { "@Id", Id } });
+                    DataSet dataSet = DataLayer.GetData("sp_GetStudentDetailsById", new Dictionary<string, object>() { { "@Id", Id } });
 
                     //DataSet dataSet = dataLayer.GetData("Select * from tbl_Student_Details where Id =@Id", new Dictionary<string, object>() { {"@Id",tboxId.Text } });
 
@@ -73,7 +77,6 @@ namespace CRUDOperationWebApp
 
                             GridViewStudentDetails.DataSource = null;
                             GridViewStudentDetails.DataBind();
-                            throw new Exception("Fuck You");
                         }
                     }
                     else
@@ -109,11 +112,11 @@ namespace CRUDOperationWebApp
             try
             {
                 int result = 0;
-                DataLayer dataLayer = new DataLayer(ConfigurationManager.ConnectionStrings["DefaultConStr"].ConnectionString);
-                DataSet dataSet = dataLayer.GetData("sp_GetStudentDetailsById", new Dictionary<string, object>() { { "@Id", tboxId.Text } });
+               // DataLayer dataLayer = new DataLayer(ConfigurationManager.ConnectionStrings["DefaultConStr"].ConnectionString);
+                DataSet dataSet = DataLayer.GetData("sp_GetStudentDetailsById", new Dictionary<string, object>() { { "@Id", tboxId.Text } });
                 if (dataSet.Tables[0].Rows.Count >= 1)
                 {
-                    result = dataLayer.UpdateData("sp_UpdateStudentDetailsById", new Dictionary<string, object>() { { "@Id", tboxId.Text },  {"@First_Name",tboxFName.Text },
+                    result = DataLayer.UpdateData("sp_UpdateStudentDetailsById", new Dictionary<string, object>() { { "@Id", tboxId.Text },  {"@First_Name",tboxFName.Text },
                      { "@Last_Name" ,tboxLName.Text },
                      { "@Email" ,tboxEmail.Text },
                      { "@Gender" ,tboxGender.Text}});
@@ -145,11 +148,11 @@ namespace CRUDOperationWebApp
 
 
                 int result = 0;
-                DataLayer dataLayer = new DataLayer(ConfigurationManager.ConnectionStrings["DefaultConStr"].ConnectionString);
-                DataSet dataSet = dataLayer.GetData("sp_GetStudentDetailsById", new Dictionary<string, object>() { { "@Id", tboxId.Text } });
+               // DataLayer dataLayer = new DataLayer(ConfigurationManager.ConnectionStrings["DefaultConStr"].ConnectionString);
+                DataSet dataSet = DataLayer.GetData("sp_GetStudentDetailsById", new Dictionary<string, object>() { { "@Id", tboxId.Text } });
                 if (dataSet.Tables[0].Rows.Count >= 1)
                 {
-                    result = dataLayer.DeleteData("sp_DeleteStudentDetailsById", new Dictionary<string, object>() { { "@Id", tboxId.Text } });
+                    result = DataLayer.DeleteData("sp_DeleteStudentDetailsById", new Dictionary<string, object>() { { "@Id", tboxId.Text } });
 
                 }
                 else

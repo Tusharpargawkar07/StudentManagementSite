@@ -8,7 +8,7 @@ namespace Logger
     public class Log : ILogger
     {
         private readonly ILog log; 
-        public Log(string type="Test")
+        public Log(string type)
         {
             log = LogManager.GetLogger(type);
             XmlConfigurator.Configure();
